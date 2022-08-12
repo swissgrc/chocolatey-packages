@@ -1,0 +1,8 @@
+# Ignores binary files packaged into the packages
+*.exe
+*.msi
+*.dll
+*.zip
+*.7z
+*.rar
+*.vsix

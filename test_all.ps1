@@ -1,6 +1,6 @@
 #Name can be 'random N' to randomly force the Nth group of packages.
 
-param( [string[]] $Name, [string] $Root = "$PSScriptRoot" )
+param( [string[]] $Name, [string] $Root = "$PSScriptRoot\automatic", [switch]$ThrowOnErrors )
 
 if (Test-Path $PSScriptRoot/update_vars.ps1) { . $PSScriptRoot/update_vars.ps1 }
 $global:au_root = Resolve-Path $Root
@@ -72,5 +72,6 @@ $global:info = updateall -Name $Name -Options $Options
 $au_errors = $global:info | Where-Object { $_.Error } | Select-Object -ExpandProperty Error
 
 if ($ThrowOnErrors -and $au_errors.Count -gt 0) {
+    WriteOutput "Test failed with message: $au_errors" -type Error
     throw 'Errors during update'
 }

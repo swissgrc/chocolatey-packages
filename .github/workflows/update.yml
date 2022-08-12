@@ -1,0 +1,149 @@
+name: Update
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "5 */8 * * *" # Run 06:05, 12:05, and 18:05
+
+jobs:
+  update:
+    name: Check for updates
+    runs-on: windows-2022
+    timeout-minutes: 350 # Run just before next scheduled run
+    strategy:
+      max-parallel: 1
+    env:
+      # Set au version to use or omit to use the latest. Specify branch name to use development version from GitHub
+      AU_VERSION: 
+      AU_PUSH: true
+      # Force test: use 1 to test all, or N to split testing into N groups
+      AU_TEST_GROUPS: 1
+      # Github token to commit pushed packages to repository
+      GITHUB_USER_REPO: swissgrc/chocolatey-packages
+      # ID of the gist used to save run results
+      GIST_ID: bcac0ec9e5582d0c4c76777c9effcddb
+      # Gist id for test results
+      GIST_ID_TEST:
+      # Chocolatey version to use when checking for updates. Should be latest version.
+      CHOCO_VERSION: '1.1.0'
+      # Chocolatey version to use for pull requests. Should be kept to the version available one year ago.
+      CHOCO_VERSION_PR: '0.10.15'
+      # Path where Chocolatey packages will be cached.
+      NUPKG_CACHE_PATH: C:\packages
+    steps:      
+      - name: Checkout repository
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # renovate: tag=v3.0.2
+        with:
+          fetch-depth: 0 # History plugin requires complete log
+      # Defines Git settings used for updating packages
+      - name: Initialize Git environment
+        shell: powershell
+        run: |
+          git config --global user.email "bot@swissgrc.com"
+          git config --global user.name "Swiss GRC"
+          git config --global core.safecrlf false
+      # Install Chocolatey
+      - name: Initialize Chocolatey
+        shell: powershell
+        run: |
+          $chocoVersion = if ( '${{ github.event.name }}' -eq 'pull_request' ) { $Env:CHOCO_VERSION_PR } else { $Env:CHOCO_VERSION }
+          if (!(Test-Path "$env:NUPKG_CACHE_PATH")) { mkdir -Force "$env:NUPKG_CACHE_PATH" }
+          @{
+            'chocolatey' = $chocoVersion
+            'wormies-au-helpers' = '0.4.1'
+          }.GetEnumerator() | % {
+            if (!(Test-Path "${env:NUPKG_CACHE_PATH}\$($_.Key).$($_.Value).nupkg")) { Remove-Item "${env:NUPKG_CACHE_PATH}\$($_.Key).*.nupkg" ; Invoke-WebRequest "https://chocolatey.org/api/v2/package/$($_.Key)/$($_.Value)" -OutFile "${env:NUPKG_CACHE_PATH}\$($_.Key).$($_.Value).nupkg" }
+            if ($_.Key -eq 'chocolatey') { choco upgrade $_.Key --version $_.Value --source ${env:NUPKG_CACHE_PATH} --allow-downgrade }
+            else { choco install $_.Key --version $_.Value --source ${env:NUPKG_CACHE_PATH} --ignore-dependencies }
+          }
+          Remove-Item "$env:ChocolateyInstall\logs\*.log"
+      # Show information about available environment
+      - name: Show environment information
+        shell: powershell
+        run: |
+          Get-CimInstance win32_operatingsystem -Property Caption, OSArchitecture, Version | Format-List Caption, OSArchitecture, Version
+          $PSVersionTable
+          git --version
+          choco --version
+      # Make Chocolatey Automatic Package Updater Module available
+      - name: Clone AU
+        shell: powershell
+        run: |
+          git clone -q https://github.com/majkinetor/au.git $Env:TEMP/au
+          . "$Env:TEMP/au/scripts/Install-AU.ps1" $Env:AU_VERSION
+      # Run specific commands which can be defined in commit messages
+      - name: Run commands
+        continue-on-error: true
+        if: github.event_name == 'push'
+        shell: powershell
+        run: |
+          switch -regex ('${{ github.event.head_commit.message }}')
+          {
+            '\[AU (.+?)\]'   { $forced = $Matches[1] }
+
+            '\[PUSH (.+?)\]' {
+                $packages = $Matches[1] -split ' '
+                Write-Host "PUSHING PACKAGES: $packages"
+                foreach ($package in $packages) {
+                  Write-Host ("{0}`n{1}`n" -f ('-'*60), "PACKAGE: $package")
+                  $package_dir = Get-ChildItem -recurse | Where-Object { $_.Name -eq "$package.nuspec"} | Select-Object -First 1 | ForEach-Object Directory
+                  if (!$package_dir) { Write-Warning "Can't find package '$package'"; continue }
+                  Push-Location $package_dir
+                    if (Test-Path update.ps1 -ea 0) { ./update.ps1 }
+                    choco pack; Push-Package -All;
+                  Pop-Location
+              }
+              return
+            }
+          }
+        env:
+          api_key: ${{ secrets.CHOCOLATEY_API_KEY }}
+          github_api_key: ${{ secrets.GITHUBREPO_API_KEY }}
+      # Update packages
+      - name: Run update
+        continue-on-error: true
+        if: github.event_name != 'pull_request'
+        shell: powershell
+        run: |
+          .\update_all.ps1 -ForcedPackages $forced
+        env:
+          api_key: ${{ secrets.CHOCOLATEY_API_KEY }}
+          github_api_key: ${{ secrets.GITHUBREPO_API_KEY }}
+      # Collect and publish build artifacts
+      - name: Collecting build artifacts
+        continue-on-error: true
+        if: github.event_name != 'pull_request'
+        shell: powershell
+        run: |
+          if (Test-Path $Env:TEMP\chocolatey\au) { 7z a  -mx9 au_temp.7z $Env:TEMP\chocolatey\au\* }
+      - name: Publish au_temp.7z
+        uses: actions/upload-artifact@v3
+        continue-on-error: true
+        if: github.event_name != 'pull_request'
+        with:
+          name: au_temp.7z
+          path: au_temp.7z
+      - name: Publish update_info.xml
+        uses: actions/upload-artifact@v3
+        continue-on-error: true
+        if: github.event_name != 'pull_request'
+        with:
+          name: update_info.xml
+          path: update_info.xml
+      - name: Publish Update-AUPackages.md
+        uses: actions/upload-artifact@v3
+        continue-on-error: true
+        if: github.event_name != 'pull_request'
+        with:
+          name: Update-AUPackages.md
+          path: Update-AUPackages.md
+      - name: Publish Update-History.md
+        uses: actions/upload-artifact@v3
+        continue-on-error: true
+        if: github.event_name != 'pull_request'
+        with:
+          name: Update-History.md
+          path: Update-History.md

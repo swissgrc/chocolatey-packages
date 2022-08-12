@@ -1,9 +1,9 @@
-[![](https://ci.appveyor.com/api/projects/status/github/swissgrc/chocolatey-packages?svg=true)](https://ci.appveyor.com/project/swissgrc/chocolatey-packages)
-[Update status](https://gist.github.com/swissgrc/YOUR_GIST_ID_HERE)
+[![Build](https://img.shields.io/github/workflow/status/swissgrc/chocolatey-packages/Build/develop?style=flat-square)](https://github.com/swissgrc/chocolatey-packages/actions/workflows/update.yml)
+[Update status](https://gist.github.com/swissgrc-bot/bcac0ec9e5582d0c4c76777c9effcddb)
 [![](http://transparent-favicon.info/favicon.ico)](#)
 [chocolatey/swissgrc](https://chocolatey.org/profiles/swissgrc)
 
-This repository contains [chocolatey automatic packages](https://chocolatey.org/docs/automatic-packages).
+This repository contains [automatic Chocolatey packages](https://chocolatey.org/docs/automatic-packages).
 The repository is setup so that you can manage your packages entirely from the GitHub web interface (using AppVeyor to update and push packages) and/or using the local repository copy.
 
 ## Prerequisites
@@ -11,9 +11,7 @@ The repository is setup so that you can manage your packages entirely from the G
 To run locally you will need:
 
 * Powershell 5+.
-* [Chocolatey Automatic Package Updater Module](https://github.com/majkinetor/au): `Install-Module au` or `cinst au`.
-
-In order to setup AppVeyor update runner please take a look at the AU wiki [AppVeyor section](https://github.com/majkinetor/au/wiki/AppVeyor).
+* [Chocolatey Automatic Package Updater Module](https://github.com/majkinetor/au): `Install-Module au` or `choco install au`.
 
 ## Create a package
 
@@ -52,8 +50,8 @@ To update all packages run `./update_all.ps1`. It accepts few options:
 The following global variables influence the execution of `update_all.ps1` script if set prior to the call:
 
 ```powershell
-$au_NoPlugins = $true        #Do not execute plugins
-$au_Push      = $false       #Do not push to chocolatey
+$au_NoPlugins = $true        # o not execute plugins
+$au_Push      = $false       # Do not push to chocolatey.org
 ```
 
 You can also call AU method `Update-AUPackages` (alias `updateall`) on its own in the repository root. This will just run the updater for the each package without any other option from `update_all.ps1` script. For example to force update of all packages with a single command execute:
@@ -74,9 +72,10 @@ You can force the update of all or subset of packages to see how they behave whe
 
 **Note**: If you run this locally your packages will get updated. Use `git reset --hard` after running this to revert the changes.
 
-## Pushing To Community Repository Via Commit Message
+## Pushing to community repository via commit message
 
-You can force package update and push using git commit message. AppVeyor build is set up to pass arguments from the commit message to the `./update_all.ps1` script.
+You can force package update and push using Git commit message.
+A GitHub Action is set up to pass arguments from the commit message to the `./update_all.ps1` script.
 
 If commit message includes `[AU <forced_packages>]` message on the first line, the `forced_packages` string will be sent to the updater.
 
@@ -91,23 +90,9 @@ To see how versions behave when package update is forced see the [force document
 
 You can also push manual packages with command `[PUSH pkg1 ... pkgN]`. This works for any package anywhere in the file hierarchy and will not invoke AU updater at all.
 
-If there are no changes in the repository use `--allow-empty` git parameter:
+If there are no changes in the repository use `--allow-empty` Git parameter:
 
 ```powershell
 git commit -m '[AU copyq less:2.0]' --allow-empty
 git push
 ```
-
-## Start using AU with your own packages
-
-To use this system with your own packages do the following steps:
-
-* Fork this project. If needed, rename it to `au-packages`.
-* Delete all existing packages.
-* Edit the `README.md` header with your repository info.
-* Set your environment variables. See [AU wiki](https://github.com/majkinetor/au/wiki#environment-variables) for details.
-
-Add your own packages now, with this in mind:
-
-* You can keep both manual and automatic packages together. To get only AU packages any time use `Get-AUPackages` function (alias `lsau` or `gau`)
-* Keep all package additional files in the package directory (icons, screenshots etc.). This keeps everything related to one package in its own directory so it is easy to move it around or remove it.

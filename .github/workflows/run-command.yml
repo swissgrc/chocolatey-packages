@@ -1,16 +1,13 @@
-name: Update
+name: Run Command
 
 on:
   push:
     branches: [main]
-  schedule:
-    - cron: "5 */8 * * *" # Run 06:05, 12:05, and 18:05
 
 jobs:
-  update:
-    name: Check for updates
+  run-command:
+    name: Run Command
     runs-on: windows-2022
-    timeout-minutes: 350 # Run just before next scheduled run
     concurrency: package_update
     env:
       # AU version to use or empty to use the latest. Specify branch name to use development version from GitHub
@@ -46,53 +43,31 @@ jobs:
         run: |
           git clone -q https://github.com/majkinetor/au.git $Env:TEMP/au
           . "$Env:TEMP/au/scripts/Install-AU.ps1" $Env:AU_VERSION
-      # Update packages
-      - name: Run update
-        continue-on-error: true
+      # Run specific commands which can be defined in commit messages
+      - name: Run commands
         shell: powershell
         run: |
-          if {{ github.event_name == 'push'}}
+          switch -regex ('${{ github.event.head_commit.message }}')
           {
-            switch -regex ('${{ github.event.head_commit.message }}')
-            {
-              '\[AU (.+?)\]' { 
-                Write-Host "AU command found"
-                $forced = $Matches[1] 
+            '\[PUSH (.+?)\]' {
+              Write-Host "PUSH command found"
+              $packages = $Matches[1] -split ' '
+              Write-Host "PUSHING PACKAGES: $packages"
+              foreach ($package in $packages) {
+                Write-Host ("{0}`n{1}`n" -f ('-'*60), "PACKAGE: $package")
+                $package_dir = Get-ChildItem -recurse | Where-Object { $_.Name -eq "$package.nuspec"} | Select-Object -First 1 | ForEach-Object Directory
+                if (!$package_dir) { Write-Warning "Can't find package '$package'"; continue }
+                Push-Location $package_dir
+                  if (Test-Path update.ps1 -ea 0) { ./update.ps1 }
+                  choco pack; Push-Package -All;
+                Pop-Location
               }
             }
-          }
 
-          .\update_all.ps1 -ForcedPackages $forced
+            default {
+                Write-Host "No command found"
+            }
+          }
         env:
           api_key: ${{ secrets.CHOCOLATEY_API_KEY }}
           github_api_key: ${{ secrets.GITHUBREPO_API_KEY }}
-      # Collect and publish build artifacts
-      - name: Collecting build artifacts
-        continue-on-error: true
-        shell: powershell
-        run: |
-          if (Test-Path $Env:TEMP\chocolatey\au) { 7z a  -mx9 au_temp.7z $Env:TEMP\chocolatey\au\* }
-      - name: Publish au_temp.7z
-        uses: actions/upload-artifact@v3
-        continue-on-error: true
-        with:
-          name: au_temp.7z
-          path: au_temp.7z
-      - name: Publish update_info.xml
-        uses: actions/upload-artifact@v3
-        continue-on-error: true
-        with:
-          name: update_info.xml
-          path: update_info.xml
-      - name: Publish Update-AUPackages.md
-        uses: actions/upload-artifact@v3
-        continue-on-error: true
-        with:
-          name: Update-AUPackages.md
-          path: Update-AUPackages.md
-      - name: Publish Update-History.md
-        uses: actions/upload-artifact@v3
-        continue-on-error: true
-        with:
-          name: Update-History.md
-          path: Update-History.md

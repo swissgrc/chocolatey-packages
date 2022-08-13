@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  update:
+  test:
     name: Test packages
     runs-on: windows-2022
     env:

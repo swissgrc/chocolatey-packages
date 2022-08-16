@@ -4,7 +4,7 @@
 [chocolatey/swissgrc](https://chocolatey.org/profiles/swissgrc)
 
 This repository contains [automatic Chocolatey packages](https://chocolatey.org/docs/automatic-packages).
-The repository is setup so that you can manage your packages entirely from the GitHub web interface (using AppVeyor to update and push packages) and/or using the local repository copy.
+The repository is setup so that it is possible to manage packages entirely from the GitHub web interface (using GitHub Actions to update and push packages) and/or using the local repository copy.
 
 ## Prerequisites
 

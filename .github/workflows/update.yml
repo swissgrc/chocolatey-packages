@@ -26,13 +26,6 @@ jobs:
         with:
           fetch-depth: 0 # History plugin requires complete log
           token: ${{ secrets.GITHUBREPO_API_KEY }} # Use a token from swissgrc-bot user, since it has permission to bypass branch protection policy
-      # Defines Git settings used for updating packages
-      - name: Initialize Git environment
-        shell: powershell
-        run: |
-          git config --global user.email "bot@swissgrc.com"
-          git config --global user.name "Swiss GRC"
-          git config --global core.safecrlf false
       # Show information about available environment
       - name: Show environment information
         shell: powershell

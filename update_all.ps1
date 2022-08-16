@@ -69,6 +69,7 @@ $Options = [ordered]@{
     GitReleases  = @{
         ApiToken    = $Env:github_api_key                   #Your github api key
         ReleaseType = 'package'                             #Either 1 release per date, or 1 release per package
+        Branch      = 'main'                                #Branch to create release on
     }
 
     RunInfo = @{

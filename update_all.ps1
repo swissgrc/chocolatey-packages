@@ -46,6 +46,7 @@ $Options = [ordered]@{
             NoIcons     = $false                            #  Markdown: don't show icon
             IconSize    = 32                                #  Markdown: icon size
             Title       = ''                                #  Markdown, Text: TItle of the report, by default 'Update-AUPackages'
+            PackageSourceBranch = 'main'                    #  Markdown: package source branch  
         }
     }
 

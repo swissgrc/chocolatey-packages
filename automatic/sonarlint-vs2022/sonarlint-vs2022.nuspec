@@ -15,6 +15,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>sonarlint sonarqube sonarcloud visualstudio</tags>
     <summary>SonarLint provides on-the-fly feedback to developers on new bugs and quality issues injected into C# and VB.Net code. In addition the connected mode allows to enforce governance policies by reporting the same issues in Visual Studio and in SonarQube server.</summary>
+    <releaseNotes>https://www.sonarlint.org/whats-new</releaseNotes>
     <description><![CDATA[SonarLint is a Free and Open Source IDE extension that identifies and helps you fix Code Quality and Code Security issues as you code. Analogous to a spell checker, SonarLint squiggles flaws and provides real-time feedback and clear remediation guidance so you can deliver clean code from the get-go.
 
 ## Features

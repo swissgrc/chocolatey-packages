@@ -55,6 +55,5 @@ Directly execute commands like `terraform init` or `terraform plan` from the VS 
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
-    <file src="legal\**" target="legal" />
   </files>
 </package>

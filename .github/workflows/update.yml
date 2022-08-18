@@ -67,7 +67,7 @@ jobs:
               }
             }
           }
-          else if ( '${{ github.event_name }}' -eq 'workflow_dispatch' )
+          elseif ( '${{ github.event_name }}' -eq 'workflow_dispatch' )
           {
             $forced = '${{ github.event.inputs.forced_packages }}'
           }

@@ -3,7 +3,11 @@ name: Run Command
 on:
   push:
     branches: [main]
-
+  workflow_dispatch: # Enable manual trigger
+    inputs:
+      packages:
+        description: List of packages to push (pkg1 ... pkgN)
+        required: true
 jobs:
   run-command:
     name: Run Command
@@ -47,12 +51,27 @@ jobs:
       - name: Run commands
         shell: powershell
         run: |
-          switch -regex ('${{ github.event.head_commit.message }}')
+          if ( '${{ github.event_name }}' -eq 'push' )
           {
-            '\[PUSH (.+?)\]' {
-              Write-Host "PUSH command found"
-              $packages = $Matches[1] -split ' '
-              Write-Host "PUSHING PACKAGES: $packages"
+            switch -regex ('${{ github.event.head_commit.message }}')
+            {
+              '\[PUSH (.+?)\]' {
+                Write-Host "PUSH command found"
+                $packages = $Matches[1] -split ' '
+              }
+
+              default {
+                  Write-Host "No command found"
+              }
+            }
+          }
+          else if ( '${{ github.event_name }}' -eq 'workflow_dispatch' )
+          {
+            $packages = '${{ github.event.inputs.packages }}'
+          }
+
+          if ( $packages )
+          {
               foreach ($package in $packages) {
                 Write-Host ("{0}`n{1}`n" -f ('-'*60), "PACKAGE: $package")
                 $package_dir = Get-ChildItem -recurse | Where-Object { $_.Name -eq "$package.nuspec"} | Select-Object -First 1 | ForEach-Object Directory
@@ -62,11 +81,6 @@ jobs:
                   choco pack; Push-Package -All;
                 Pop-Location
               }
-            }
-
-            default {
-                Write-Host "No command found"
-            }
           }
         env:
           api_key: ${{ secrets.CHOCOLATEY_API_KEY }}

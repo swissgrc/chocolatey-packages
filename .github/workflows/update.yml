@@ -3,6 +3,11 @@ name: Update
 on:
   push:
     branches: [main]
+  workflow_dispatch: # Enable manual trigger
+    inputs:
+      forced_packages:
+        description: The list of packages to forcibly update (pkg1:ver1 pkg2 ... pkgN)
+        required: false
   schedule:
     - cron: "5 */8 * * *" # Run 06:05, 12:05, and 18:05
 
@@ -52,7 +57,7 @@ jobs:
         continue-on-error: true
         shell: powershell
         run: |
-          if ( '${{ github.event_name }}' -eq 'push')
+          if ( '${{ github.event_name }}' -eq 'push' )
           {
             switch -regex ('${{ github.event.head_commit.message }}')
             {
@@ -61,6 +66,10 @@ jobs:
                 $forced = $Matches[1] 
               }
             }
+          }
+          else if ( '${{ github.event_name }}' -eq 'workflow_dispatch' )
+          {
+            $forced = '${{ github.event.inputs.forced_packages }}'
           }
 
           .\update_all.ps1 -ForcedPackages $forced

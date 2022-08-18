@@ -40,17 +40,17 @@ Set `$au_Force = $true` prior to script call to update the package even if no ne
 To update all packages run `./update_all.ps1`. It accepts few options:
 
 ```powershell
-./update_all.ps1 -Name a*                         # Update all packages which name start with letter 'a'
-./update_all.ps1 -ForcedPackages 'cpu-z copyq'    # Update all packages and force cpu-z and copyq
-./update_all.ps1 -ForcedPackages 'copyq:1.2.3'    # Update all packages but force copyq with explicit version
-./update_all.ps1 -ForcedPackages 'libreoffice-streams\fresh:6.1.0]'    # Update all packages but force libreoffice-streams package to update stream `fresh` with explicit version `6.1.0`.
-./update_all.ps1 -Root 'c:\packages'              # Update all packages in the c:\packages folder
+./update_all.ps1 -Name a*                                           # Update all packages which name start with letter 'a'
+./update_all.ps1 -ForcedPackages 'cpu-z copyq'                      # Update all packages and force cpu-z and copyq
+./update_all.ps1 -ForcedPackages 'copyq:1.2.3'                      # Update all packages but force copyq with explicit version
+./update_all.ps1 -ForcedPackages 'libreoffice-streams\fresh:6.1.0]' # Update all packages but force libreoffice-streams package to update stream `fresh` with explicit version `6.1.0`.
+./update_all.ps1 -Root 'c:\packages'                                # Update all packages in the c:\packages folder
 ```
 
 The following global variables influence the execution of `update_all.ps1` script if set prior to the call:
 
 ```powershell
-$au_NoPlugins = $true        # o not execute plugins
+$au_NoPlugins = $true        # Do not execute plugins
 $au_Push      = $false       # Do not push to chocolatey.org
 ```
 
@@ -72,9 +72,36 @@ You can force the update of all or subset of packages to see how they behave whe
 
 **Note**: If you run this locally your packages will get updated. Use `git reset --hard` after running this to revert the changes.
 
+## Pushing to community repository with GitHub Action
+
+It is possible to force package update and push using GitHub Action.
+
+### Pushing automatic packages
+
+When manually running [Update Action](https://github.com/swissgrc/chocolatey-packages/actions/workflows/update.yml) it is
+possible to pass list of packages for which update should be forced.
+To see how versions behave when package update is forced see the [force documentation](https://github.com/majkinetor/au/blob/master/README.md#force-update).
+
+### Pushing manual packages
+
+When manually running [Run Command Action](https://github.com/swissgrc/chocolatey-packages/actions/workflows/run-command.yml) it is
+possible to pass list of manual packages which should be pushed.
+
 ## Pushing to community repository via commit message
 
 You can force package update and push using Git commit message.
+
+This can either be done by setting commit message when merging a PR,
+or by manually creating and pushing an empty commit using the `--allow-empty`
+Git parameter:
+
+```powershell
+git commit -m '[AU copyq less:2.0]' --allow-empty
+git push
+```
+
+### Pushing automatic packages
+
 A GitHub Action is set up to pass arguments from the commit message to the `./update_all.ps1` script.
 
 If commit message includes `[AU <forced_packages>]` message on the first line, the `forced_packages` string will be sent to the updater.
@@ -88,11 +115,7 @@ Force `pkg1` and use explicit version `ver1`, force `pkg2` and ignore `non_exist
 
 To see how versions behave when package update is forced see the [force documentation](https://github.com/majkinetor/au/blob/master/README.md#force-update).
 
-You can also push manual packages with command `[PUSH pkg1 ... pkgN]`. This works for any package anywhere in the file hierarchy and will not invoke AU updater at all.
+### Pushing manual packages
 
-If there are no changes in the repository use `--allow-empty` Git parameter:
-
-```powershell
-git commit -m '[AU copyq less:2.0]' --allow-empty
-git push
-```
+You can also push manual packages with command `[PUSH pkg1 ... pkgN]`.
+This works for any package anywhere in the file hierarchy and will not invoke AU updater at all.

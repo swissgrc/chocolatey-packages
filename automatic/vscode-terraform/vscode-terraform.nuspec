@@ -9,7 +9,7 @@
     <projectUrl>https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform</projectUrl>
     <projectSourceUrl>https://github.com/hashicorp/vscode-terraform</projectSourceUrl>
     <packageSourceUrl>https://github.com/swissgrc/chocolatey-packages/tree/main/automatic/vscode-terraform</packageSourceUrl>
-    <iconUrl>https://cdn.jsdelivr.net/gh/swissgrc/chocolatey-packages@28a5e2c01ae0d9ad6848dc1654403ac3ce4d8380/automatic/vscode-terraform/vscode-terraform.png</iconUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/swissgrc/chocolatey-packages@26c57c8ca63a4ee86beebc92353aad2f9ec3fe21/automatic/vscode-terraform/vscode-terraform.png</iconUrl>
     <licenseUrl>https://github.com/hashicorp/vscode-terraform/blob/main/LICENSE</licenseUrl>
     <docsUrl>https://github.com/hashicorp/vscode-terraform/blob/main/README.md</docsUrl>
     <bugTrackerUrl>https://github.com/hashicorp/vscode-terraform/issues</bugTrackerUrl>

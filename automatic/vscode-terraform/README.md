@@ -1,4 +1,4 @@
-# <img src="https://cdn.jsdelivr.net/gh/swissgrc/chocolatey-packages@28a5e2c01ae0d9ad6848dc1654403ac3ce4d8380/automatic/vscode-terraform/vscode-terraform.png" width="48" height="48"/> [vscode-terraform](https://chocolatey.org/packages/vscode-terraform)
+# <img src="https://cdn.jsdelivr.net/gh/swissgrc/chocolatey-packages@26c57c8ca63a4ee86beebc92353aad2f9ec3fe21/automatic/vscode-terraform/vscode-terraform.png" width="48" height="48"/> [vscode-terraform](https://chocolatey.org/packages/vscode-terraform)
 
 The HashiCorp [Terraform Visual Studio Code (VS Code)](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform)
 extension with the [Terraform Language Server](https://github.com/hashicorp/terraform-ls) adds editing features for

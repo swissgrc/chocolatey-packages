@@ -10,14 +10,14 @@ jobs:
     runs-on: windows-2022
     env:
       # AU version to use or empty to use the latest. Specify branch name to use development version from GitHub
-      AU_VERSION: 
+      AU_VERSION:
       # Use 1 to test all, or N to split testing into N groups
       AU_TEST_GROUPS: 1
       # Repository containing packages
       GITHUB_USER_REPO: swissgrc/chocolatey-packages
       # Gist ID for test results
       GIST_ID_TEST:
-    steps:      
+    steps:
       - name: Checkout repository
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # renovate: tag=v3.0.2
         with:
@@ -54,7 +54,7 @@ jobs:
         env:
           github_api_key: ${{ secrets.GITHUBREPO_API_KEY }}
       - name: Publish install_snapshot.7z
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # renovate: tag=v3.1.0
         continue-on-error: true
         with:
           name: install_snapshot.7z

@@ -1,6 +1,8 @@
 import-module au
+import-module PowerShellForGitHub
 
-$releases = 'https://github.com/SonarSource/sonarlint-visualstudio/releases'
+$repoOwner = 'SonarSource'
+$repoName = 'sonarlint-visualstudio'
 
 function global:au_BeforeUpdate { Get-RemoteFiles -Purge -NoSuffix -FileNameBase $Latest.FileName }
 
@@ -18,11 +20,14 @@ function global:au_SearchReplace {
 }
 
 function global:au_GetLatest {
-  $download_page = Invoke-WebRequest -Uri $releases -UseBasicParsing
-
-  $re      = 'SonarLint.VSIX-.*-2022.vsix'
-  $url     = "https://github.com" + ($download_page.links | Where-Object href -match $re | Select-Object -First 1 -expand href)
-  $version = $url -split '-' | Select-Object -Last 1 -Skip 1
+  $release = Get-GitHubRelease -OwnerName $repoOwner -RepositoryName $repoName -Latest
+  $version = $release.tag_name
+  if ($version.StartsWith('v')) {
+    $version = $version.Substring(1)
+  }
+  
+  $asset = Get-GitHubReleaseAsset -OwnerName $repoOwner -RepositoryName $repoName -ReleaseId $release.id | Where-Object name -match 'SonarLint.VSIX-.*-2022.vsix'
+  $url = $asset.browser_download_url
 
   @{
     Version   = $version

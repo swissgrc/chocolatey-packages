@@ -1,4 +1,4 @@
-[![Build](https://img.shields.io/github/workflow/status/swissgrc/chocolatey-packages/Update/main?style=flat-square)](https://github.com/swissgrc/chocolatey-packages/actions/workflows/update.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/swissgrc/chocolatey-packages/update.yml?branch=main&style=flat-square)](https://github.com/swissgrc/chocolatey-packages/actions/workflows/update.yml)
 [Update status](https://gist.github.com/swissgrc-bot/bcac0ec9e5582d0c4c76777c9effcddb)
 [![](http://transparent-favicon.info/favicon.ico)](#)
 [chocolatey/swissgrc](https://chocolatey.org/profiles/swissgrc)

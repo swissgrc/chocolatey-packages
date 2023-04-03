@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>azuredatastudio-postgresql</id>
+    <title>PostgreSQL extension for Azure Data Studio</title>
+    <version>0.0.0</version>
+    <authors>Microsoft</authors>
+    <owners>Swiss GRC AG</owners>
+    <projectUrl>https://learn.microsoft.com/en-us/sql/azure-data-studio/extensions/postgres-extension</projectUrl>
+    <projectSourceUrl>https://github.com/microsoft/azuredatastudio-postgresql</projectSourceUrl>
+    <packageSourceUrl>https://github.com/swissgrc/chocolatey-packages/tree/main/automatic/azuredatastudio-postgresql</packageSourceUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/swissgrc/chocolatey-packages@9419eab4db67e32f4a7c68d676a06934675a6ad2/automatic/azuredatastudio-postgresql/azuredatastudio-postgresql.png</iconUrl>
+    <licenseUrl>https://github.com/microsoft/azuredatastudio-postgresql/blob/master/LICENSE</licenseUrl>
+    <docsUrl>https://learn.microsoft.com/en-us/sql/azure-data-studio/extensions/postgres-extension</docsUrl>
+    <bugTrackerUrl>https://github.com/microsoft/azuredatastudio-postgresql/issues</bugTrackerUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>PostgreSQL extension for Azure Data Studio</summary>
+    <description><![CDATA[Connect, query, and manage Postgres databases with Azure Data Studio, a modern data editor available for Linux, MacOS, and Windows. This (preview) extension enables you to interact with Postgres using Azure Data Studio features like:
+
+## Features
+
+* Connect to Postgres anywhere
+* Searchable object explorer view for database objects
+* Query authoring and editing with Intellisense, syntax highlighting and code snippets
+* View query results and save to csv, JSON, xml, or Excel
+* Integrated terminal for Bash, PowerShell, and cmd.exe
+* Go to Definition and Peek Definition for examining the DDL of objects
+* Source control integration with Git
+* Customize dashboards and insight widgets using SQL
+* Server groups for organizing connections
+* Customizable keyboard shortcuts, multi-tab support, color theme options
+* Backup and Restore
+
+## Notes
+
+* This package requires Azure Data Studio 1.5.1 or newer.
+  You can install it with the [azure-data-studio](https://chocolatey.org/packages/azure-data-studio) package.
+* The extension will be installed in any edition of Azure Data Studio which could be found.
+]]></description>
+    <tags>microsoft azure-data-studio extension postgresql</tags>
+    <releaseNotes>https://github.com/microsoft/azuredatastudio-postgresql/releases</releaseNotes>
+    <dependencies>
+      <dependency id="chocolatey-azuredatastudio.extension" version="1.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

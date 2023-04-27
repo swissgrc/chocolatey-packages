@@ -1,3 +1,3 @@
 ﻿$ErrorActionPreference = 'Stop'
 
-Install-VsCodeExtension -extensionId 'HashiCorp.terraform@2.25.4'
+Install-VsCodeExtension -extensionId 'HashiCorp.terraform@2.26.0'

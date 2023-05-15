@@ -4,7 +4,7 @@
   <metadata>
     <id>sonarlint-vs2022</id>
     <title>SonarLint for Visual Studio 2022</title>
-    <version>6.15.0.67199</version>
+    <version>6.16.0.69538</version>
     <authors>SonarSource</authors>
     <owners>Swiss GRC AG</owners>
     <projectSourceUrl> https://github.com/SonarSource/sonarlint-visualstudio</projectSourceUrl>

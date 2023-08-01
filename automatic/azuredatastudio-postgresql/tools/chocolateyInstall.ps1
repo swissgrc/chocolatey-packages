@@ -3,7 +3,7 @@
 $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 $extensionName = "azuredatastudio-postgresql-"
-$extensionVersion = "0.4.2"
+$extensionVersion = "0.5.0"
 $extensionId = "$toolsDir\$extensionName$extensionVersion-win-x64.vsix"
 
 Update-SessionEnvironment

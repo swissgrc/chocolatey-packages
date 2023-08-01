@@ -3,7 +3,7 @@
   <metadata>
     <id>azuredatastudio-postgresql</id>
     <title>PostgreSQL extension for Azure Data Studio</title>
-    <version>0.4.2</version>
+    <version>0.5.0</version>
     <authors>Microsoft</authors>
     <owners>Swiss GRC AG</owners>
     <projectUrl>https://learn.microsoft.com/en-us/sql/azure-data-studio/extensions/postgres-extension</projectUrl>

@@ -10,7 +10,13 @@
     <projectUrl>https://github.com/dotnet/cli-lab/releases/download/1.6.0/dotnet-core-uninstall-1.6.0.msi</projectUrl>
     <tags>.NET uninstaller msi SDK</tags>
     <summary>A .NET uninstall tool to remove old SDK Versions</summary>
-    <description>The .NET uninstall tool is used to remove older versions of .NET that use up your disk space.</description>
+    <description><![CDATA[The .NET uninstall tool (dotnet-core-uninstall) lets you remove .NET SDKs and runtimes from a system. A collection of options is available to specify which versions you want to uninstall.
+
+## Features
+
+- Uninstall SDKs and runtimes that were installed using the .NET SDK and runtime installer.
+- Uninstall SDKs and runtimes that were installed using the Visual Studio installer in versions earlier than Visual Studio 2019 version 16.3.
+]]></description>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />

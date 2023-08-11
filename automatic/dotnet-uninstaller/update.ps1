@@ -8,6 +8,11 @@ function global:au_BeforeUpdate { Get-RemoteFiles -Purge -NoSuffix -FileNameBase
 
 function global:au_SearchReplace {
     @{
+      ".\legal\VERIFICATION.txt" = @{
+        "(?i)(1\..+)\<.*\>"         = "`${1}<$($Latest.URL32)>"
+        "(?i)(checksum type:\s+).*" = "`${1} $($Latest.ChecksumType32)"
+        "(?i)(checksum:\s+).*"      = "`${1} $($Latest.Checksum32)"
+      }
       'tools\chocolateyInstall.ps1' = @{
         "(^[$]filePath\s*=\s*`"[$]toolsPath\\)(.*)`"" = "`$1$($Latest.FileName).$($Latest.FileType)`""
       }

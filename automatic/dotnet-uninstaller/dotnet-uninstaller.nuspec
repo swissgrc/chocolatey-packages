@@ -5,7 +5,7 @@
     <id>dotnet-uninstaller</id>
     <version>0.0.0</version>
     <title>Dotnet Core Uninstaller 1.6.0 (Install)</title>
-    <authors>sfoslund,baronfel</authors>
+    <authors>Microsoft</authors>
     <owners>Swiss GRC AG</owners>
     <projectUrl>https://learn.microsoft.com/en-us/dotnet/core/additional-tools/uninstall-tool</projectUrl>
     <tags>.NET uninstaller msi SDK</tags>

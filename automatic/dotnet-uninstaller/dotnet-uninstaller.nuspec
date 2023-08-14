@@ -8,17 +8,13 @@
     <authors>Microsoft</authors>
     <owners>Swiss GRC AG</owners>
     <projectUrl>https://learn.microsoft.com/en-us/dotnet/core/additional-tools/uninstall-tool</projectUrl>
-    <title>Microsoft .NET Core SDK Uninstall Tool</title>
-    <authors>Microsoft</authors>
-    <owners>Swiss GRC AG</owners>
-    <projectUrl>https://learn.microsoft.com/en-us/dotnet/core/additional-tools/uninstall-tool</projectUrl>
-    <projectSourceUrl>https://github.com/dotnet/cli-lab/releases</projectSourceUrl>
-    <packageSourceUrl>https://github.com/dotnet/cli-lab/tree/main/src</packageSourceUrl>
+    <projectSourceUrl>https://github.com/dotnet/cli-lab</projectSourceUrl>
+    <packageSourceUrl>https://github.com/swissgrc/chocolatey-packages/tree/master/automatic/dotnet-uninstaller</packageSourceUrl>
     <licenseUrl>https://github.com/dotnet/cli-lab/blob/main/LICENSE.TXT</licenseUrl>
     <releaseNotes>https://github.com/dotnet/cli-lab/releases</releaseNotes>
-    <docsUrl>https://learn.microsoft.com/en-us/dotnet/core/additional-tools/uninstall-tool?tabs=windows</docsUrl>
+    <docsUrl>https://learn.microsoft.com/en-us/dotnet/core/additional-tools/uninstall-tool</docsUrl>
     <bugTrackerUrl>https://github.com/dotnet/cli-lab/issues</bugTrackerUrl>
-    <tags>foss cross-platform cli</tags>
+    <tags>foss cross-platform cli .net uninstaller sdk</tags>
     <summary>A .NET uninstall tool to remove old SDK Versions</summary>
     <description><![CDATA[The .NET uninstall tool (dotnet-core-uninstall) lets you remove .NET SDKs and runtimes from a system. A collection of options is available to specify which versions you want to uninstall.
 

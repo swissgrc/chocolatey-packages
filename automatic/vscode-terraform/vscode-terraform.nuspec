@@ -3,7 +3,7 @@
   <metadata>
     <id>vscode-terraform</id>
     <title>Visual Studio Code HashiCorp Terraform Extension</title>
-    <version>2.27.2023071109</version>
+    <version>2.28.2023091812</version>
     <authors>HashiCorp</authors>
     <owners>Swiss GRC AG</owners>
     <projectUrl>https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform</projectUrl>

@@ -27,7 +27,7 @@ jobs:
       GIST_ID: bcac0ec9e5582d0c4c76777c9effcddb
     steps:      
       - name: Checkout repository
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 0 # History plugin requires complete log
           token: ${{ secrets.GITHUBREPO_API_KEY }} # Use a token from swissgrc-bot user, since it has permission to bypass branch protection policy

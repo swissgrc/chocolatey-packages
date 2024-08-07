@@ -88,25 +88,25 @@ jobs:
         run: |
           if (Test-Path $Env:TEMP\chocolatey\au) { 7z a  -mx9 au_temp.7z $Env:TEMP\chocolatey\au\* }
       - name: Publish au_temp.7z
-        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # v4.3.5
+        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
         continue-on-error: true
         with:
           name: au_temp.7z
           path: au_temp.7z
       - name: Publish update_info.xml
-        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # v4.3.5
+        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
         continue-on-error: true
         with:
           name: update_info.xml
           path: update_info.xml
       - name: Publish Update-AUPackages.md
-        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # v4.3.5
+        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
         continue-on-error: true
         with:
           name: Update-AUPackages.md
           path: Update-AUPackages.md
       - name: Publish Update-History.md
-        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # v4.3.5
+        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
         continue-on-error: true
         with:
           name: Update-History.md

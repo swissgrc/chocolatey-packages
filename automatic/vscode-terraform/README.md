@@ -28,6 +28,7 @@ Directly execute commands like `terraform init` or `terraform plan` from the VS 
 * This package requires Visual Studio Code 1.2.0 or newer.
   You can install either the [vscode](https://chocolatey.org/packages/vscode) or [vscode-insiders](https://chocolatey.org/packages/vscode-insiders) package.
 * The extension will be installed in any edition of Visual Studio Code which can be found.
-* While this package installs a specific version of the extension, Visual Studio Code by default will update the extension to the latest version on startup
+* While this package installs a specific version of the extension, Visual Studio Code before 1.92.0 by default will update the extension to the latest version on startup
   if there's a newer version available on the marketplace.
   See [Extension auto-update](https://code.visualstudio.com/docs/editor/extension-gallery#_extension-autoupdate) for instructions how to disable auto-update.
+  Visual Studio Code 1.92.0 and newer won't update the extension installed through this package automatically.

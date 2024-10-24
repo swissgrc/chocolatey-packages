@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>dotnet-uninstaller</id>
-    <version>1.7.521001</version>
+    <version>1.7.550802</version>
     <title>Microsoft .NET Core SDK Uninstall tool</title>
     <authors>Microsoft</authors>
     <owners>Swiss GRC AG</owners>

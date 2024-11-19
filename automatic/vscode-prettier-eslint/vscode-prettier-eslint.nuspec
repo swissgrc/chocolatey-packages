@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>vscode-prettier-eslint</id>
+    <title>Visual Studio Code Prettier ESLint</title>
+    <version>1.0.0</version>
+    <authors>Rebecca Vest</authors>
+    <owners>Swiss GRC</owners>
+    <projectUrl>https://marketplace.visualstudio.com/items?itemName=rvest.vs-code-prettier-eslint</projectUrl>
+    <projectSourceUrl>https://gitlab.com/idahogurl/vs-code-prettier-eslint</projectSourceUrl>
+    <packageSourceUrl>https://github.com/swissgrc/chocolatey-packages/tree/master/automatic/vscode-prettier-eslint</packageSourceUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/swissgrc/chocolatey-packages@2ef70f9db2ed3b0e16235c9f89a2ce5d43360951/icons/vscode-prettier-eslint.png</iconUrl>
+    <licenseUrl>https://marketplace.visualstudio.com/items/vs-code-prettier-eslint/license</licenseUrl>
+    <docsUrl>https://code.visualstudio.com/docs/languages/csharp</docsUrl>
+    <bugTrackerUrl>https://github.com/OmniSharp/omnisharp-vscode/issues</bugTrackerUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>C# for Visual Studio Code (powered by OmniSharp)</summary>
+    <description><![CDATA[C# for Visual Studio Code (powered by OmniSharp)
+
+## Features
+
+This extension provides the following features inside VS Code:
+
+* Lightweight development tools for [.NET Core](https://dotnet.github.io).
+* Great C# editing support, including Syntax Highlighting, IntelliSense, Go to Definition, Find All References, etc.
+* Debugging support for .NET Core (CoreCLR). NOTE: Mono debugging is not supported. Desktop CLR debugging has [limited support](https://github.com/OmniSharp/omnisharp-vscode/wiki/Desktop-.NET-Framework).
+* Support for project.json and csproj projects on Windows, macOS and Linux.
+
+## Notes
+
+* This package requires Visual Studio Code 1.2.0 or newer.
+  You can install either the [vscode](https://chocolatey.org/packages/vscode) or [vscode-insiders](https://chocolatey.org/packages/vscode-insiders) package.
+* The extension will be installed in any edition of Visual Studio Code which can be found.
+* While this package installs a specific version of the extension, Visual Studio Code by default will update the extension to the latest version on startup
+  if there's a newer version available on the marketplace.
+  See [Extension auto-update](https://code.visualstudio.com/docs/editor/extension-gallery#_extension-autoupdate) for instructions how to disable auto-update.
+]]></description>
+    <tags>microsoft visualstudiocode vscode extension csharp omnisharp</tags>
+    <releaseNotes>https://marketplace.visualstudio.com/items/ms-dotnettools.csharp/changelog</releaseNotes>
+    <dependencies>
+      <dependency id="chocolatey-vscode.extension" version="1.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+    <file src="legal\**" target="legal" />
+  </files>
+</package>

@@ -1,4 +1,5 @@
-import-module au
+import-module chocolatey-au
+import-module PowerShellForGitHub
 
 $repoOwner = 'dotnet'
 $repoName = 'cli-lab'
@@ -19,32 +20,15 @@ function global:au_SearchReplace {
   }
 
 function global:au_GetLatest {
-
-    $ghPath = Get-Command "gh"
-    if (!$ghPath) {
-      throw "github cli 'gh' installation is required"
-    }
-    
-    # get the latest release (exclude pre-release)
-    $releaseJson = gh release view --repo "$repoOwner/$repoName" --json name,tagName,isPrerelease,isDraft,url,publishedAt,assets
-    $release = $releaseJson | ConvertFrom-Json
-    
-    # dont use prerelease or draft releases
-    if (($release.isPrerelease) -or ($release.isDraft)) {
-      throw "Unexpected release type: prerelease=$($release.isPrerelease), draft=$($release.isDraft)"
-    }
-  
-    # get release asset url
-    $assetUrls = $release.assets | Select-Object -ExpandProperty url | Where-Object { $_ -match "dotnet-core-uninstall-.*\.msi" }
-    if ($($assetUrls.Length) -ne 1) {
-      throw "Found $($assetUrls.Length) assets, expected only one"
-    }
-    $version = $release.tagName
+    $release = Get-GitHubRelease -OwnerName $repoOwner -RepositoryName $repoName -Latest
+    $version = $release.tag_name
     if ($version.StartsWith('v')) {
       $version = $version.Substring(1)
     }
-    $url = $assetUrls[0]  
     
+    $asset = Get-GitHubReleaseAsset -OwnerName $repoOwner -RepositoryName $repoName -ReleaseId $release.id | Where-Object name -match 'dotnet-core-uninstall.msi'
+    $url = $asset.browser_download_url
+  
     @{
       Version   = $version
       URL32     = $url

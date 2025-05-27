@@ -1,5 +1,4 @@
-import-module chocolatey-au
-import-module PowerShellForGitHub
+import-module au
 
 $repoOwner = 'dotnet'
 $repoName = 'cli-lab'

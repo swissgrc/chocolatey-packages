@@ -26,9 +26,13 @@ function global:au_GetLatest {
       $version = $version.Substring(1)
     }
     
-    $asset = Get-GitHubReleaseAsset -OwnerName $repoOwner -RepositoryName $repoName -ReleaseId $release.id | Where-Object name -match 'dotnet-core-uninstall-.*\.msi'
+    $asset = Get-GitHubReleaseAsset -OwnerName $repoOwner -RepositoryName $repoName -ReleaseId $release.id | Where-Object name -match 'dotnet-core-uninstall.msi'
     $url = $asset.browser_download_url
   
+    if (!$url) {
+      throw "Asset not found"
+    }
+
     @{
       Version   = $version
       URL32     = $url

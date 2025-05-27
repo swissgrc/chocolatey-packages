@@ -1,4 +1,5 @@
 import-module au
+import-module PowerShellForGitHub
 
 $repoOwner = 'dotnet'
 $repoName = 'cli-lab'

@@ -5,14 +5,14 @@ in verifying that this package's contents are trustworthy.
  
 Package can be verified like this:
  
-1. Download <https://github.com/dotnet/cli-lab/releases/download/1.7.618124/dotnet-core-uninstall.msi>
+1. Download <https://github.com/dotnet/cli-lab/releases/download/1.7.656206/dotnet-core-uninstall.msi>
   
 2. You can use one of the following methods to obtain the checksum:
    - Use powershell function 'Get-FileHash'
    - Use Chocolatey utility 'checksum.exe'
  
-   checksum type:     sha256
-   checksum:     7CD2259F852A730CCAF75BF9F44061B0CCC5EAA6C794CC6559C071FBBC091D05
+   checksum type:      sha256
+   checksum:      482C8BC5839AF3C7E1A3CB9C25B4A4DA966B6115D515B340CF070F9D29E6EFBF
 
 File 'LICENSE.txt' is obtained from:
    https://github.com/dotnet/cli-lab/blob/main/LICENSE.TXT

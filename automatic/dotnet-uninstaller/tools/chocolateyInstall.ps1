@@ -1,7 +1,7 @@
 ﻿$ErrorActionPreference = 'Stop'; 
 
 $toolsPath   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$filePath = "$toolsPath\dotnet-core-uninstall-1.7.656206.msi"
+$filePath = "$toolsPath\dotnet-core-uninstall-1.7.661902.msi"
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName

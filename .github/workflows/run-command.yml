@@ -23,7 +23,7 @@ jobs:
       GIST_ID: bcac0ec9e5582d0c4c76777c9effcddb
     steps:      
       - name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 0 # History plugin requires complete log
       # Defines Git settings used for updating packages
